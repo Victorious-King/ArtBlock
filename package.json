@@ -2,6 +2,11 @@
   "name": "crypter-nft",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+        "node": "16.10.0",
+        "npm": "7.24.0",
+        "yarn": "1.22.15"
+    },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
