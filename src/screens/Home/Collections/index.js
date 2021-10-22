@@ -11,72 +11,42 @@ const items = [
     author: "Voltaine & Victor",
     counter: "28",
     avatar: "/images/content/avatar-1.jpg",
-    gallery: [
-      "/images/content/photo-1.1.jpg",
-      "/images/content/photo-1.2.jpg",
-      "/images/content/photo-1.3.jpg",
-      "/images/content/photo-1.4.jpg",
-    ],
+    gallery: "/images/content/photo-1.1.jpg",
   },
   {
     title: "Awesome collection",
     author: "Willie Barton",
     counter: "28",
     avatar: "/images/content/avatar-3.jpg",
-    gallery: [
-      "/images/content/photo-2.1.jpg",
-      "/images/content/photo-2.2.jpg",
-      "/images/content/photo-2.3.jpg",
-      "/images/content/photo-2.4.jpg",
-    ],
+    gallery: "/images/content/photo-1.2.jpg",
   },
   {
     title: "Awesome collection",
     author: "Halle Jakubowski",
     counter: "28",
     avatar: "/images/content/avatar-4.jpg",
-    gallery: [
-      "/images/content/photo-3.1.jpg",
-      "/images/content/photo-3.2.jpg",
-      "/images/content/photo-3.3.jpg",
-      "/images/content/photo-3.4.jpg",
-    ],
+    gallery: "/images/content/photo-1.3.jpg",
   },
   {
     title: "Awesome collection",
     author: "Halle Jakubowski",
     counter: "28",
     avatar: "/images/content/photo-3.2.jpg",
-    gallery: [
-      "/images/content/photo-3.1.jpg",
-      "/images/content/photo-3.2.jpg",
-      "/images/content/photo-3.3.jpg",
-      "/images/content/photo-3.4.jpg",
-    ],
+    gallery: "/images/content/photo-1.4.jpg",
   },
   {
     title: "Awesome collection",
     author: "Halle Jakubowski",
     counter: "28",
     avatar: "/images/content/photo-3.1.jpg",
-    gallery: [
-      "/images/content/photo-3.1.jpg",
-      "/images/content/photo-3.2.jpg",
-      "/images/content/photo-3.3.jpg",
-      "/images/content/photo-3.4.jpg",
-    ],
+    gallery: "/images/content/photo-2.1.jpg",
   },
   {
     title: "Awesome collection",
     author: "Halle Jakubowski",
     counter: "28",
     avatar: "/images/content/photo-3.3.jpg",
-    gallery: [
-      "/images/content/photo-3.1.jpg",
-      "/images/content/photo-3.2.jpg",
-      "/images/content/photo-3.3.jpg",
-      "/images/content/photo-3.4.jpg",
-    ],
+    gallery: "/images/content/photo-3.1.jpg",
   },
 ];
 
@@ -129,11 +99,9 @@ const Collections = () => {
               {items.map((x, index) => (
                 <Link className={styles.item} to="/item" key={index}>
                   <div className={styles.gallery}>
-                    {x.gallery.map((x, index) => (
-                      <div className={styles.preview} key={index}>
-                        <img src={x} alt="Collection" />
-                      </div>
-                    ))}
+                    <div className={styles.preview} key={index}>
+                      <img src={x.gallery} alt="Collection" />
+                    </div>
                   </div>
                   <div className={styles.subtitle}>{x.title}</div>
                   <div className={styles.line}>
