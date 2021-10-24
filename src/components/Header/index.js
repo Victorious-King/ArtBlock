@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import cn from "classnames";
 import styles from "./Header.module.sass";
@@ -6,6 +6,7 @@ import Icon from "../Icon";
 import Image from "../Image";
 import Notification from "./Notification";
 import User from "./User";
+import { connectWallet, getCurrentWalletConnected } from "../../interact.js";
 
 const nav = [
   {
@@ -20,11 +21,68 @@ const nav = [
 
 const Headers = () => {
   const [visibleNav, setVisibleNav] = useState(false);
+  const [visibleConnect, setVisibleConnect] = useState(true);
   const [search, setSearch] = useState("");
+  const [walletAddress, setWallet] = useState("");
+  const [status, setStatus] = useState("");
+  const [message, setMessage] = useState("No connection to the network.");
 
-  const handleSubmit = (e) => {
-    alert();
+  const connectWalletPressed = async () => {
+    const walletResponse = await connectWallet();
+    setStatus(walletResponse.status);
+    setWallet(walletResponse.address);
+
+    if(walletResponse.address != "") setVisibleConnect(false)
+    else setVisibleConnect(true)
   };
+
+  function addWalletListener() {
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length > 0) {
+          setWallet(accounts[0]);
+          setMessage("👆🏽 Write a message in the text-field above.");
+        } else {
+          setVisibleConnect(true)
+          setWallet("");
+          alert("🦊 Connect to Metamask using the top right button.");
+        }
+      });
+    } else {
+      alert("🦊 You must install Metamask, a virtual Ethereum wallet, in your browser. https://metamask.io/download.html")
+      setMessage(
+        <p>
+          {" "}
+          🦊{" "}
+          <a target="_blank" href={`https://metamask.io/download.html`}>
+            You must install Metamask, a virtual Ethereum wallet, in your
+            browser.
+          </a>
+        </p>
+      );
+    }
+  }
+
+
+  const onHandleWallet = (e) => {
+    //alert('handlewallet')
+    connectWalletPressed();
+  };
+  const handleNavButton = () => {
+    setVisibleNav(!visibleNav);
+  };
+
+  useEffect(async () => {
+    // const message = await loadCurrentMessage();
+    // setMessage(message);
+    // addSmartContractListener();
+    const { address, status } = await getCurrentWalletConnected();
+    setWallet(address)
+    setStatus(status);
+    if(address == "") setVisibleConnect(true)
+    else setVisibleConnect(false)
+    addWalletListener();
+  }, []);
 
   return (
     <header className={styles.header}>
@@ -38,6 +96,7 @@ const Headers = () => {
               <Link
                 className={styles.link}
                 // activeClassName={styles.active}
+                onClick={handleNavButton}
                 to={x.url}
                 key={index}
               >
@@ -46,13 +105,14 @@ const Headers = () => {
             ))}
           </nav>
         </div>
-        <Link
-          className={cn("button-stroke button-small", styles.button)}
+        {/* <Link
+          className={cn("button-stroke button-small", styles.button,{[styles.switch]: !visibleConnect})}
           to="/#"
+          onClick={onHandleWallet}
         >
           Connect Wallet
-        </Link>
-        {/* <User className={styles.user} /> */}
+        </Link> */}
+        <User className={cn(styles.user)} walletAddress = {walletAddress} visibleConnect={visibleConnect} setVisibleConnect = {setVisibleConnect} />
         <button
           className={cn(styles.burger, { [styles.active]: visibleNav })}
           onClick={() => setVisibleNav(!visibleNav)}

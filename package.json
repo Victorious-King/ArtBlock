@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-        "node": "16.10.0",
-		"npm": "7.24.0",
-        "yarn": "1.22.15"
-    },
+    "node": "16.6.1",
+    "npm": "7.20.3"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/walletconnect-connector": "^6.2.7",
     "body-scroll-lock": "^3.1.5",
     "classnames": "^2.3.1",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.5.1",
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -23,11 +27,11 @@
     "react-scripts": "^4.0.3",
     "react-share": "^4.4.0",
     "react-slick": "^0.28.1",
-    "use-dark-mode": "^2.3.1"
+    "use-dark-mode": "^2.3.1",
+    "web3": "^1.6.0"
   },
   "scripts": {
-	  "heroku-postbuild": "npm rebuild node-sass",
-	"postinstall": "npm rebuild node-sass",
+    "postinstall": "npm rebuild node-sass",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

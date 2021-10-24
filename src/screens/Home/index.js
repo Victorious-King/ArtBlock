@@ -10,13 +10,9 @@ import Description from "./Description";
 const Home = () => {
   return (
     <>
-      {/* <Hero />
-      <Selection /> */}
-      {/* <Popular />
-      <HotBid classSection="section" /> */}
+
       <Collections />
-      {/* <Discover /> */}
-      {/* <Description /> */}
+
     </>
   );
 };

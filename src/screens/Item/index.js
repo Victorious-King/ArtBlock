@@ -32,7 +32,19 @@ const Item = () => {
             <Accept />
             <div className={styles.info}>
               <div className={styles.info}>
-              “mono no aware” is an exploration of change at the borders between existence and emptiness. Shapes and colors appear, twisting and fading gradually into new forms. The evolution of the system creates unpredictable and surprising emergent patterns, as deviations from neat symmetry quickly evolve into chaos. The animation is a cellular automaton running with no pre-defined end — but some patterns don’t have what it takes to survive indefinitely. That’s okay; not everything lasts forever (but the pieces will restart in this case). [Click] to restart. The Level of Detail (LOD) on each animation can be adjusted using [Left Arrow] for less, or [Right Arrow] for more, to allow a customized visual experience and achieve the desired framerate for various devices.
+                “mono no aware” is an exploration of change at the borders
+                between existence and emptiness. Shapes and colors appear,
+                twisting and fading gradually into new forms. The evolution of
+                the system creates unpredictable and surprising emergent
+                patterns, as deviations from neat symmetry quickly evolve into
+                chaos. The animation is a cellular automaton running with no
+                pre-defined end — but some patterns don’t have what it takes to
+                survive indefinitely. That’s okay; not everything lasts forever
+                (but the pieces will restart in this case). [Click] to restart.
+                The Level of Detail (LOD) on each animation can be adjusted
+                using [Left Arrow] for less, or [Right Arrow] for more, to allow
+                a customized visual experience and achieve the desired framerate
+                for various devices.
               </div>
             </div>
           </div>

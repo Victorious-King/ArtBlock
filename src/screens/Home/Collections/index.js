@@ -1,7 +1,7 @@
-import React from "react";
+import React,{ useState } from "react";
 import cn from "classnames";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styles from "./Collections.module.sass";
 import Icon from "../../../components/Icon";
 
@@ -55,6 +55,29 @@ const SlickArrow = ({ currentSlide, slideCount, children, ...props }) => (
 );
 
 const Collections = () => {
+  const history = useHistory();
+  const [activeDrag, setActiveDrag] = useState({
+    clientXonMouseDown: null,
+    clientYonMouseDown: null,
+  });
+
+  const handleOnMouseDown = (e) => {
+    setActiveDrag({
+      clientXonMouseDown: e.clientX,
+      clientYonMouseDown: e.clientY
+    })
+    e.preventDefault() // stops weird link dragging effect
+  }
+  const onLinkClick = (e) => {
+    e.stopPropagation();
+    if (
+      activeDrag.clientXonMouseDown !== e.clientX ||
+      activeDrag.clientYonMouseDown !== e.clientY
+    ) {
+      // prevent link click if the element was dragged
+      e.preventDefault();
+    }
+  };
   const settings = {
     infinite: false,
     speed: 500,
@@ -97,7 +120,13 @@ const Collections = () => {
           <div className={styles.inner}>
             <Slider className="collection-slider" {...settings}>
               {items.map((x, index) => (
-                <Link className={styles.item} to="/item" key={index}>
+                <Link
+                  className={styles.item}
+                  to="/item"
+                  key={index}
+                  onMouseDown={handleOnMouseDown}
+                  onClick={onLinkClick}
+                >
                   <div className={styles.gallery}>
                     <div className={styles.preview} key={index}>
                       <img src={x.gallery} alt="Collection" />
