@@ -69,8 +69,8 @@
     margin-left: auto
     margin-right: 32px
     border-left: 2px solid $neutrals6
-    +d
-        display: none
+    // +d
+    //     display: none
     +m
         display: flex
         flex-direction: column
@@ -93,9 +93,13 @@
     &.active
         color: $blue
     &:nth-child(n+3)
-        display: none
+        //display: none
         +m
             display: block
+    svg
+        //margin-right: 16px
+        fill: $neutrals4
+        transition: fill .2s
 
 .search
     position: relative
@@ -178,3 +182,10 @@
 
 .switch
     display: none
+
+.navtext
+    
+    +d
+        display: none
+    // +m
+    //     display: inline-flex

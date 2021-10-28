@@ -34,24 +34,6 @@ const Footers = () => {
   return (
     <footer className={styles.footer}>
       <div className={cn("container", styles.container)}>
-        <div className={styles.row}>
-          <div className={styles.col}>
-            <Link className={styles.logo} to="/">
-            <div className={styles.info}>
-                101010.art
-            </div>
-            </Link>  
-            <div className={styles.version}>
-              <div className={styles.details}>Dark theme</div>
-              <Theme className="theme-big" />
-            </div>
-          </div>
-          <div className={styles.col}>
-            {items.map((x, index) => (
-              <Group className={styles.group} item={x} key={index} />
-            ))}
-          </div>
-        </div>
         <div className={styles.foot}>
           <div className={styles.copyright}>
             Copyright © 2021 UI8 LLC. All rights reserved
@@ -59,6 +41,7 @@ const Footers = () => {
           <div className={styles.note}>
             <a href="/#"><Icon name={'twitter'} size="24" /></a>
             <a href="/#"><Icon name={'discord'} size="24" /></a>
+            <div className={styles.details}>Dark theme&nbsp;&nbsp;&nbsp; <Theme className="theme-big" /></div>
           </div>
         </div>
       </div>

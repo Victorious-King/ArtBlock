@@ -11,42 +11,40 @@ const items = [
     author: "Voltaine & Victor",
     counter: "28",
     avatar: "/images/content/avatar-1.jpg",
-    gallery: "/images/content/photo-1.1.jpg",
+    pinhash: "/item/QmahTmkCyJUkPGHhdi5esNkCDaLCUt1aExRypmJ9oQNXAM",
+    gallery: "https://gateway.pinata.cloud/ipfs/Qma46fWpvq3e3ZwsatvNxjkG6cHFenWWG9B8ijnw5cHpFm/MaSimulation%20%2810%29.png",
   },
   {
-    title: "Awesome collection",
-    author: "Willie Barton",
+    title: "Collection",
+    author: "Coming Soon",
     counter: "28",
     avatar: "/images/content/avatar-3.jpg",
-    gallery: "/images/content/photo-1.2.jpg",
+    pinhash: "/",
+    gallery: "/images/content/collections2.png",
   },
   {
-    title: "Awesome collection",
-    author: "Halle Jakubowski",
+    title: "Collection",
+    author: "Coming Soon",
     counter: "28",
     avatar: "/images/content/avatar-4.jpg",
-    gallery: "/images/content/photo-1.3.jpg",
+    pinhash: "/",
+    gallery: "/images/content/collections3.png",
   },
   {
-    title: "Awesome collection",
-    author: "Halle Jakubowski",
+    title: "Collection",
+    author: "Coming Soon",
     counter: "28",
     avatar: "/images/content/photo-3.2.jpg",
-    gallery: "/images/content/photo-1.4.jpg",
+    pinhash: "/",
+    gallery: "/images/content/collections2.png",
   },
   {
-    title: "Awesome collection",
-    author: "Halle Jakubowski",
+    title: "Collection",
+    author: "Coming Soon",
     counter: "28",
     avatar: "/images/content/photo-3.1.jpg",
-    gallery: "/images/content/photo-2.1.jpg",
-  },
-  {
-    title: "Awesome collection",
-    author: "Halle Jakubowski",
-    counter: "28",
-    avatar: "/images/content/photo-3.3.jpg",
-    gallery: "/images/content/photo-3.1.jpg",
+    pinhash: "/",
+    gallery: "/images/content/collections3.png",
   },
 ];
 
@@ -77,6 +75,7 @@ const Collections = () => {
       // prevent link click if the element was dragged
       e.preventDefault();
     }
+    else console.log('itemclick',e);
   };
   const settings = {
     infinite: false,
@@ -122,7 +121,7 @@ const Collections = () => {
               {items.map((x, index) => (
                 <Link
                   className={styles.item}
-                  to="/item"
+                  to={x.pinhash}
                   key={index}
                   onMouseDown={handleOnMouseDown}
                   onClick={onLinkClick}
@@ -132,19 +131,15 @@ const Collections = () => {
                       <img src={x.gallery} alt="Collection" />
                     </div>
                   </div>
+                  <div className={styles.subtitle}>{index+1}</div>
                   <div className={styles.subtitle}>{x.title}</div>
                   <div className={styles.line}>
                     <div className={styles.user}>
-                      <div className={styles.avatar}>
-                        <img src={x.avatar} alt="Avatar" />
-                      </div>
                       <div className={styles.author}>
-                        By <span>{x.author}</span>
+                        <span>{x.author}</span>
                       </div>
                     </div>
-                    <div className={cn("status-stroke-black", styles.counter)}>
-                      <span>{x.counter}</span> items
-                    </div>
+                    
                   </div>
                 </Link>
               ))}

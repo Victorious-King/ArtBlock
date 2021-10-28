@@ -1,0 +1,8 @@
+{
+  "name": "101010Art Collection",
+  "description": "We extract momentum from our very core. Moving towards, through and beyond every point with the extension and adaption of default origins by our side. 101010Art is an image series inspired by the Upa river in Martin Houra’s home town of Trutnov, Czech Republic. This collection of 111 works uses the code of Mykhailo Moroz to explore the junction between physical and virtual origins. These images reflect the depth and movement of those origins, which propel us through one state to the next.",
+  "image": "https://ipfs.io/ipfs/QmZgvJpNyZmEHPMZeLeRvsp2bPPbqYwGVgCXJAQuUmbswe",
+  "external_link": "https://101010art.netlify.app/"
+  "seller_fee_basis_points": 150, 
+  "fee_recipient": "0x9b822baa7A008c686DDf01eb892b029BBe68606E" 
+}
