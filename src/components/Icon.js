@@ -103,7 +103,7 @@ const Icon = (props) => {
       className={cn(props.className)}
       width={size}
       height={size}
-      viewBox="0 0 24 24"
+      viewBox="0 0 16 16"
       fill={fill}
     >
       <path d={icons[props.name]}></path>

@@ -28,6 +28,7 @@
     "react-scripts": "^4.0.3",
     "react-share": "^4.4.0",
     "react-slick": "^0.28.1",
+    "slick-carousel": "^1.8.1",
     "use-dark-mode": "^2.3.1",
     "web3": "^1.6.0"
   },
@@ -57,6 +58,9 @@
     ]
   },
   "react-dotenv": {
-    "whitelist": ["REACT_APP_CHAIN_ID","REACT_APP_RPC_URL"]
+    "whitelist": [
+      "REACT_APP_CHAIN_ID",
+      "REACT_APP_RPC_URL"
+    ]
   }
 }

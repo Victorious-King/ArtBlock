@@ -4,21 +4,11 @@ import cn from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
 import styles from "./User.module.sass";
 import Icon from "../../Icon";
-import Theme from "../../Theme";
 import { useWeb3React } from "@web3-react/core";
 import Modal from "../../../components/Modal";
 import { connectorsByName, resetWalletConnector} from "../../../utils/web3React"
 
 const items = [
-  {
-    title: "My profile",
-    icon: "user",
-    url: "/#",
-  },
-  {
-    title: "Dark theme",
-    icon: "bulb",
-  },
   {
     title: "Disconnect",
     icon: "exit",
@@ -36,18 +26,15 @@ const User = ({
   const [modalvisible, setModalVisible] = useState(false);
   const [disWallet, setDisWallet] = useState("");
 
-  const { account, connector, activate } = useWeb3React();
+  const { account, connector, activate, chainId } = useWeb3React();
   //console.log(account)
   const walletDisConnectPrc = () => {
     
     setVisible(!visible);
-    setVisibleConnect(true);
+    activate(null)
   };
 
   const walletConnectPrc = () => {
-    //setVisible(!visible);
-    //setVisibleConnect(false);
-
     setModalVisible(true);
   };
 
@@ -151,7 +138,6 @@ const User = ({
                           <Icon name={x.icon} size="20" />
                         </div>
                         <div className={styles.text}>{x.title}</div>
-                        <Theme className={styles.theme} />
                       </div>
                     )
                   )}

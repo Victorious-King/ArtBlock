@@ -1282,21 +1282,23 @@ contract ArtCollection is ERC721Enumerable, Ownable {
     
     address payable public ownerContract;
     
-    constructor() ERC721("101010Art", "101010ART") {
+    constructor() ERC721("Energie-101010Art", "Energie") {
         ownerContract = payable(address(0xb5e438DFEDd598322a74Bb8B11E92AF0570EF619));
     }
 
-    uint256 public constant MAX_SUPPLY = 400;
+    uint256 public constant MAX_SUPPLY = 165;
+    uint256 private _numOfAvailableTokens = 165;
+    uint256[165] private _availableTokens;
     uint256 public constant MAX_MINTABLE_IN_TXN = 20;
     uint256 private _reserved = 10;
-    string public _baseTokenURI = "https://ipfs.io/ipfs/QmdnPaqj5wuX1M4KJNdNbgKjAN4ji2Ezk5mekMdDVw7QLh/";
+    string public _baseTokenURI = "ipfs://QmPp5a2LgXnHTVWr9qdKcSut9Vk9BxwtJ4tZDfN3N1ZGCm/";
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         return string(abi.encodePacked(_baseTokenURI, Strings.toString(tokenId)));
     }
 
     function contractURI() public pure returns (string memory) {
-        return "https://ipfs.io/ipfs/QmbWsfdjSGDW4fbwbRVAwXz8u8rVfBBCLhysM8uiErRzMU";
+        return "ipfs://QmQ8dZJ3yd7XMNrBdBgRGxL3yeLG9pfUNiRNftgxYX6PDF";
     }
 
     function setBaseURI(string memory baseURI) public onlyOwner {
@@ -1325,14 +1327,15 @@ contract ArtCollection is ERC721Enumerable, Ownable {
     }
 
     function _mint(uint256 _amountToMint) internal {
-        uint256 supply = totalSupply();
         require(_amountToMint > 0 && _amountToMint <= MAX_MINTABLE_IN_TXN, "You can only mint between 1-20 tokens at a time.");
-       
+        uint256 updatedNumAvailableTokens = _numOfAvailableTokens;
         for (uint256 i = 0; i < _amountToMint; i++) {
-            
-            _safeMint(msg.sender,supply + i);
-            emit ArtMinted(msg.sender, supply + i);
+            uint256 RandomTokenId = _useRandomAvailableToken(_amountToMint, i) + 1;
+            updatedNumAvailableTokens--;
+            _safeMint(msg.sender,RandomTokenId);
+            emit ArtMinted(msg.sender, RandomTokenId);
         }
+        _numOfAvailableTokens = updatedNumAvailableTokens;
         ownerContract.transfer(msg.value);
         
 
@@ -1340,11 +1343,15 @@ contract ArtCollection is ERC721Enumerable, Ownable {
 
     function reserve(address _toAddress, uint256 _amount) external onlyOwner {
         require( _amount <= _reserved, "Exceeds reserved NFT supply" );
-        uint256 supply = totalSupply();
+        
+        uint256 updatedNumAvailableTokens = _numOfAvailableTokens;
         for(uint256 i=0; i < _amount; i++){
-            _safeMint( _toAddress, supply + i );
+            uint256 RandomTokenId = _useRandomAvailableToken(_amount, i) + 1;
+            updatedNumAvailableTokens--;
+            _safeMint(_toAddress,RandomTokenId);
         }
         _reserved -= _amount;
+        _numOfAvailableTokens = updatedNumAvailableTokens;
     }
 
     function pause(bool val) public onlyOwner {
@@ -1353,6 +1360,52 @@ contract ArtCollection is ERC721Enumerable, Ownable {
     
     function isPaused() public view returns (bool){
         return _paused;
+    }
+    
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, ERC721Enumerable) returns (bool) {
+        return super.supportsInterface(interfaceId);
+    }
+    
+    // Random token generator
+    function _useRandomAvailableToken(uint256 _numberToFetch, uint256 _indexToUse) internal returns (uint256) {
+        uint256 randomNumber = uint256(
+            keccak256(
+                abi.encode(
+                    msg.sender,
+                    tx.gasprice,
+                    block.number,
+                    block.timestamp,
+                    blockhash(block.number-1),
+                    _numberToFetch,
+                    _indexToUse
+                    )
+                )
+            );
+        uint256 randomIndex = randomNumber % _numOfAvailableTokens;
+        return _useAvailableTokenAtIndex(randomIndex);
+    }
+
+    function _useAvailableTokenAtIndex(uint256 indexToUse) internal returns (uint256) {
+        
+        uint256 valAtIndex = _availableTokens[indexToUse];
+        uint256 result;
+        
+        if (valAtIndex == 0) {
+            result = indexToUse;
+        } else {
+            result = valAtIndex;
+        }
+        uint256 lastIndex = _numOfAvailableTokens - 1;
+        if(indexToUse != lastIndex) {
+            uint256 lastValInArray = _availableTokens[lastIndex];
+            if (lastValInArray == 0) {
+                _availableTokens[indexToUse] = lastIndex;
+            } else {
+                _availableTokens[indexToUse] = lastValInArray;
+            }
+        }
+        _numOfAvailableTokens--;
+        return result;
     }
 
 }

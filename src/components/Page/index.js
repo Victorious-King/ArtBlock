@@ -7,7 +7,6 @@ import Footer from "../Footer";
 
 const Page = ({ children }) => {
   const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo(0, 0);
     clearAllBodyScrollLocks();
